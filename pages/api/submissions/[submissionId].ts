@@ -8,7 +8,7 @@ export default async function (req, res) {
       headers: {
         cookie: req.headers.cookie
       },
-      url: process.env.API_URL,
+      url: `https://${process.env.API_URL}/v1/graphql`,
       data: {
         query: `
           query getSubmission($id: bigint!) {
@@ -25,7 +25,7 @@ export default async function (req, res) {
       },
     });
     const { stored_name, upload_name, created_at } = data.submission;
-    res.download(`${process.env.UPLOAD_DIR}/`+stored_name, `${(new Date(created_at)).getTime()}_${upload_name}`)
+    res.download(`${process.env.NEXT_PUBLIC_UPLOAD_DIR}/`+stored_name, `${(new Date(created_at)).getTime()}_${upload_name}`)
   } catch (error: any) {
     return res.status(400).json({
       status: 'error',

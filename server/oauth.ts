@@ -64,12 +64,7 @@ const config: ConfigParams = {
       // @ts-ignore
       req.appSession!.userIdentity = additionalUserClaims.data;
       const { sub, name } = additionalUserClaims.data;
-      // notification
       const { userId, semesterId} = await getUserData(sub, name!);
-      // const userId = '20605387'
-      // const semesterId = 'testing2213'
-      // user table + col --> notification token
-      // set cookie --> null not set --> non null set
       res.cookie('semester', semesterId, { maxAge: SESSION_VALID_FOR, httpOnly: false, domain: `.${process.env.HOSTNAME}` });
       res.cookie('user', userId, { maxAge: SESSION_VALID_FOR, httpOnly: false, domain: `.${process.env.HOSTNAME}` });
       res.cookie(
@@ -82,6 +77,10 @@ const config: ConfigParams = {
     return {
       ...session,
     };
+  },
+  // @ts-ignore
+  routes: {
+    postLogoutRedirect: process.env.POST_LOGOUT_REDIRECT_URI
   }
 }
 

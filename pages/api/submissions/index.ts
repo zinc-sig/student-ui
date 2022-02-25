@@ -26,7 +26,7 @@ async function submit(cookie: string, submission: Submission) {
       headers: {
         cookie
       },
-      url: process.env.API_URL,
+      url: `https://${process.env.API_URL}/v1/graphql`,
       data: {
         query: `
           mutation addSubmissionEntry($submission: submissions_insert_input!) {
@@ -68,7 +68,7 @@ export default async function (req, res) {
           }
           const filename = `${Date.now()}_${user}_aggregated.zip`
           const destinationFilename = `submitted/${filename}`;
-          const savedPath = `${process.env.UPLOAD_DIR}/${destinationFilename}`
+          const savedPath = `${process.env.NEXT_PUBLIC_UPLOAD_DIR}/${destinationFilename}`
           zip.writeZip(savedPath);
           const { size } = statSync(savedPath);
           const submission: Submission = {
@@ -100,7 +100,7 @@ export default async function (req, res) {
             user_id: parseInt(user, 10)
           }
           try {
-            copyFile(files.path, `${process.env.UPLOAD_DIR}/${destinationFilename}`, async (err) => {
+            copyFile(files.path, `${process.env.NEXT_PUBLIC_UPLOAD_DIR}/${destinationFilename}`, async (err) => {
               if(!err) {
                 const {id} = await submit(req.headers.cookie, submission);
                 return res.json({
