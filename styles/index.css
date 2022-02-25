@@ -1,0 +1,184 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+
+  .d2h-file-list-title {
+    @apply hidden;
+  }
+
+  .d2h-icon.d2h-moved {
+    @apply hidden;
+  }
+
+  .d2h-file-name {
+    @apply hidden;
+  }
+
+  .d2h-file-list-line {
+    @apply hidden;
+  }
+
+  .d2h-tag.d2h-moved.d2h-moved-tag {
+    @apply hidden;
+  }
+  
+  .d2h-file-wrapper {
+    @apply rounded-lg;
+  }
+  .d2h-file-header {
+    @apply rounded-tl-lg rounded-tr-lg;
+  }
+}
+
+[aria-label] {
+  position: relative; /* opinion 1 */
+}
+
+/* Applies to all tooltips */
+[aria-label]::before,
+[aria-label]::after {
+  text-transform: none; /* opinion 2 */
+  font-size: .9em; /* opinion 3 */
+  line-height: 1;
+  user-select: none;
+  pointer-events: none;
+  position: absolute;
+  display: none;
+  opacity: 0;
+}
+[aria-label]::before {
+  content: '';
+  border: 5px solid transparent; /* opinion 4 */
+  z-index: 1001; /* absurdity 1 */
+}
+[aria-label]::after {
+  content: attr(aria-label); /* magic! */
+  
+  /* most of the rest of this is opinion */
+  font-family: Inter, sans-serif;
+  text-align: center;
+  
+  /* 
+    Let the content set the size of the tooltips 
+    but this will also keep them from being obnoxious
+    */
+  min-width: 3em;
+  max-width: 21em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 1ch 1.5ch;
+  border-radius: .8ch;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  background: #333;
+  color: #fff;
+  z-index: 1000; /* absurdity 2 */
+}
+
+/* Make the tooltips respond to hover */
+[aria-label]:hover::before,
+[aria-label]:hover::after {
+  display: block;
+}
+
+/* don't show empty tooltips */
+[aria-label='']::before,
+[aria-label='']::after {
+  display: none !important;
+}
+
+/* FLOW: UP */
+[aria-label]:not([data-flow])::before,
+[aria-label][data-flow^="up"]::before {
+  bottom: 100%;
+  border-bottom-width: 0;
+  border-top-color: #333;
+}
+[aria-label]:not([data-flow])::after,
+[aria-label][data-flow^="up"]::after {
+  bottom: calc(100% + 5px);
+}
+[aria-label]:not([data-flow])::before,
+[aria-label]:not([data-flow])::after,
+[aria-label][data-flow^="up"]::before,
+[aria-label][data-flow^="up"]::after {
+  left: 50%;
+  transform: translate(-50%, -.5em);
+}
+
+/* FLOW: DOWN */
+[aria-label][data-flow^="down"]::before {
+  top: 100%;
+  border-top-width: 0;
+  border-bottom-color: #333;
+}
+[aria-label][data-flow^="down"]::after {
+  top: calc(100% + 5px);
+}
+[aria-label][data-flow^="down"]::before,
+[aria-label][data-flow^="down"]::after {
+  left: 50%;
+  transform: translate(-50%, .5em);
+}
+
+/* FLOW: LEFT */
+[aria-label][data-flow^="left"]::before {
+  top: 50%;
+  border-right-width: 0;
+  border-left-color: #333;
+  left: calc(0em - 5px);
+  transform: translate(-.5em, -50%);
+}
+[aria-label][data-flow^="left"]::after {
+  top: 50%;
+  right: calc(100% + 5px);
+  transform: translate(-.5em, -50%);
+}
+
+/* FLOW: RIGHT */
+[aria-label][data-flow^="right"]::before {
+  top: 50%;
+  border-left-width: 0;
+  border-right-color: #333;
+  right: calc(0em - 5px);
+  transform: translate(.5em, -50%);
+}
+[aria-label][data-flow^="right"]::after {
+  top: 50%;
+  left: calc(100% + 5px);
+  transform: translate(.5em, -50%);
+}
+
+/* KEYFRAMES */
+@keyframes tooltips-vert {
+  to {
+    opacity: .9;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes tooltips-horz {
+  to {
+    opacity: .9;
+    transform: translate(0, -50%);
+  }
+}
+
+/* FX All The Things */ 
+[aria-label]:not([data-flow]):hover::before,
+[aria-label]:not([data-flow]):hover::after,
+[aria-label][data-flow^="up"]:hover::before,
+[aria-label][data-flow^="up"]:hover::after,
+[aria-label][data-flow^="down"]:hover::before,
+[aria-label][data-flow^="down"]:hover::after {
+  animation: tooltips-vert 150ms ease-out forwards;
+}
+
+[aria-label][data-flow^="left"]:hover::before,
+[aria-label][data-flow^="left"]:hover::after,
+[aria-label][data-flow^="right"]:hover::before,
+[aria-label][data-flow^="right"]:hover::after {
+  animation: tooltips-horz 150ms ease-out forwards;
+}
