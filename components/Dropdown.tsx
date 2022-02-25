@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { Transition } from "@tailwindui/react";
+import { Transition } from "@headlessui/react";
 
 interface DropdownContextState {
   display: boolean

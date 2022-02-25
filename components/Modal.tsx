@@ -1,4 +1,4 @@
-import { Transition } from "@tailwindui/react";
+import { Transition } from "@headlessui/react";
 import { useLayoutDispatch, useLayoutState } from "../contexts/layout";
 
 interface ModalProps {

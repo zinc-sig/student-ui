@@ -1,5 +1,5 @@
 import { useLayoutState } from "../contexts/layout";
-import { Transition } from "@tailwindui/react";
+import { Transition } from "@headlessui/react";
 
 interface SlideOverProps {
   children: React.ReactNode

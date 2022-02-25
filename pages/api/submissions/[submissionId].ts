@@ -26,7 +26,7 @@ export default async function (req, res) {
     });
     const { stored_name, upload_name, created_at } = data.submission;
     res.download(`${process.env.UPLOAD_DIR}/`+stored_name, `${(new Date(created_at)).getTime()}_${upload_name}`)
-  } catch (error) {
+  } catch (error: any) {
     return res.status(400).json({
       status: 'error',
       message: error.message

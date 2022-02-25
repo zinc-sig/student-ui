@@ -16,10 +16,9 @@
     "@fortawesome/pro-light-svg-icons": "^5.14.0",
     "@fortawesome/pro-regular-svg-icons": "^5.14.0",
     "@fortawesome/react-fontawesome": "^0.1.11",
-    "@headlessui/react": "^1.4.2",
+    "@headlessui/react": "^1.5.0",
     "@kunukn/react-collapse": "^2.2.9",
     "@tailwindcss/ui": "^0.6.2",
-    "@tailwindui/react": "^0.1.1",
     "adm-zip": "^0.4.16",
     "autoprefixer": "^10.4.0",
     "axios": "^0.21.1",
@@ -66,6 +65,6 @@
     "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^2.2.19",
     "ts-node": "^8.10.2",
-    "typescript": "^3.9.7"
+    "typescript": "^4.5.5"
   }
 }

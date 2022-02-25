@@ -59,7 +59,6 @@ export default async function (req, res) {
         throw err;
       } else {
         if(Array.isArray(files)) {
-          console.log('A')
           if(files.filter(({ name, hash }) => hash!==fields[`checksum;${name}`]).length > 1) {
             throw new Error('One or more checksum mismatched, potential transmission corruption detected');
           }
@@ -85,7 +84,6 @@ export default async function (req, res) {
             status: 'success'
           });
         } else {
-          console.log('B')
           if(files.hash!==fields[`checksum;${files.name}`]) {
             return res.status(500).json({
               status: 'error',
@@ -93,7 +91,6 @@ export default async function (req, res) {
             });
           }
           const destinationFilename = `submitted/${files.lastModifiedDate.getTime()}_${user}_${files.path.replace(`/tmp/`, '')}`
-          console.log(destinationFilename)
           const submission: Submission = {
             stored_name: destinationFilename,
             upload_name: files.name,
@@ -112,7 +109,7 @@ export default async function (req, res) {
                 });
               }
             });
-          } catch (error) {
+          } catch (error: any) {
             if (error.message.includes(`Cannot read property 'createSubmission' of undefined`)) {
 
               return res.status(403).json({
@@ -130,7 +127,7 @@ export default async function (req, res) {
         }
       }
     });
-  } catch (error) {
+  } catch (error: any) {
     return res.status(500).json({
       status: 'error',
       error: error.message
