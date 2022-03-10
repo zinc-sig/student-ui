@@ -6,8 +6,8 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 
 let apolloClient;
 const isBrowser = typeof window !== 'undefined';
-// const endpoint = 'api.zinc.cse.ust.hk/v1/graphql';
-const endpoint = 'api.oap.ust.dev/v1/graphql';
+const endpoint = 'api.zinc.cse.ust.hk/v1/graphql';
+// const endpoint = 'api.oap.ust.dev/v1/graphql';
 
 function createApolloClient(cookie: string) {
   const httpLink = new HttpLink({
