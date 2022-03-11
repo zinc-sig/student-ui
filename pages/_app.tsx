@@ -5,6 +5,8 @@ import { fad } from "@fortawesome/pro-duotone-svg-icons";
 import { far } from "@fortawesome/pro-regular-svg-icons";
 import { useApollo } from "../lib/apollo";
 import { ZincProvider } from "../contexts/zinc";
+import toast from "react-hot-toast";
+import { Notification,NotificationBody } from "../components/Notification";
 
 import 'react-gh-like-diff/dist/css/diff2html.min.css';
 import "../styles/index.css"
@@ -18,13 +20,25 @@ function ZincApp({ Component, pageProps, user, semester, cookie }) {
   }
   const client = useApollo(cookie, initialApolloState);
 
-  return (
-    <ApolloProvider client={client}>
-      <ZincProvider user={user} semester={semester}>
-        <Component {...pageProps}/>
-      </ZincProvider>
-    </ApolloProvider>
-  )
+  try {
+    return (
+      <ApolloProvider client={client}>
+        <ZincProvider user={user} semester={semester}>
+          <Component {...pageProps}/>
+        </ZincProvider>
+      </ApolloProvider>
+    )
+  } catch (error: any) {
+    toast.custom((t) =>(
+      <Notification trigger={t}>
+        <NotificationBody
+          title={'Error'}
+          body={error.message}
+          success={false}
+          id={t.id} />
+      </Notification>
+    ));
+  }
 }
 
 ZincApp.getInitialProps = async ({ctx}) => {
