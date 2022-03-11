@@ -15,7 +15,7 @@ import { UPDATE_SUBMISSION_NOTI } from "../../graphql/mutations/user";
 
 function AssignmentSubmission({ submissionClosed, configId, isOpen }) {
   const { user ,submitFile } = useZinc();
-  const [updateSubmissionNoti] = useMutation(UPDATE_SUBMISSION_NOTI)
+  // const [updateSubmissionNoti] = useMutation(UPDATE_SUBMISSION_NOTI)
   const dispatch = useLayoutDispatch();
   const onDrop = useCallback(files => {
     if(files.length===0) {
@@ -26,29 +26,29 @@ function AssignmentSubmission({ submissionClosed, configId, isOpen }) {
           // start 
           // console.log(id)
           //add data in database
-          const notiConfigUpdateResult = await updateSubmissionNoti({
-            variables: {
-              userId: user,
-              submissionId: id,
-              submissionIdForCheck: id
-            }
-          })
+          // const notiConfigUpdateResult = await updateSubmissionNoti({
+          //   variables: {
+          //     userId: user,
+          //     submissionId: id,
+          //     submissionIdForCheck: id
+          //   }
+          // })
           // console.log(notiConfigUpdateResult)
           // subscribe to topic (s-userid-submissionId)
           // get registrationToken of recevier
-          const notiRes = await fetch(`/api/notification/getNotification?&id=${user}`,{
-            method: 'GET'
-          });
-          const noti = await notiRes.json()
-          const token = noti.notification
+          // const notiRes = await fetch(`/api/notification/getNotification?&id=${user}`,{
+          //   method: 'GET'
+          // });
+          // const noti = await notiRes.json()
+          // const token = noti.notification
 
-          const response = await fetch(`/api/notification/subscription/${'s'+user.toString()+'-'+id.toString()}`,{
-            method: 'POST',
-            body: JSON.stringify({
-              registrationToken: token,
-              userId: id
-            })
-          })
+          // const response = await fetch(`/api/notification/subscription/${'s'+user.toString()+'-'+id.toString()}`,{
+          //   method: 'POST',
+          //   body: JSON.stringify({
+          //     registrationToken: token,
+          //     userId: id
+          //   })
+          // })
           // end
 
           // if success
