@@ -53,14 +53,12 @@ function AssignmentListItem({ assignmentConfig }) {
 
 export function Assignments() {
   const { visibleCourses, user } = useZinc();
-  console.log(user, visibleCourses)
-  const { data,error ,loading } = useQuery(GET_ASSIGNMENTS, {
+  const { data, error ,loading } = useQuery(GET_ASSIGNMENTS, {
     variables: {
       userId: user,
       courseIds: visibleCourses
     }
   });
-  console.log(data, error)
   return (
     <div className="flex-1 overflow-y-auto">
       {
