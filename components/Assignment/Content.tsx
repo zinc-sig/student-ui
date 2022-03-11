@@ -9,9 +9,9 @@ import { useSubscription } from "@apollo/client";
 import { SUBMISSION_SUBSCRIPTION } from "../../graphql/queries/user";
 import { SubmissionLoader } from "../SubmissionLoader";
 // import { Notification, SubmissionNotification } from "../Notification";
-import toast from "react-hot-toast";
-import { useMutation} from "@apollo/client";
-import { UPDATE_SUBMISSION_NOTI } from "../../graphql/mutations/user";
+// import toast from "react-hot-toast";
+// import { useMutation} from "@apollo/client";
+// import { UPDATE_SUBMISSION_NOTI } from "../../graphql/mutations/user";
 
 function AssignmentSubmission({ submissionClosed, configId, isOpen }) {
   const { user ,submitFile } = useZinc();
@@ -21,7 +21,7 @@ function AssignmentSubmission({ submissionClosed, configId, isOpen }) {
     if(files.length===0) {
       dispatch({ type: 'showNotification', payload: { title: 'Invalid file type', message: 'Your submission contains file that are not supported, please try again', success: false } });
     } else {
-      submitFile(files).then(async ({status, id}: any) => {
+      submitFile(files).then(async ({status}: any) => {
         if(status==='success') {
           // start 
           // console.log(id)
