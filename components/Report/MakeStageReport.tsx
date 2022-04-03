@@ -37,7 +37,6 @@ export function MakeStageReportView({ reports }) {
   
   const [logView, setLogView] = useState('stdout');
   const [viewingIndex, setViewingIndex] = useState(0);
-  console.log(reports);
 
   return (
     <div className="bg-white shadow rounded-lg border">

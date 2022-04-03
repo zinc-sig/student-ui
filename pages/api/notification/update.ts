@@ -2,9 +2,7 @@ import type { NextApiRequest, NextApiResponse } from "next";
 import axios from "axios";
 
 export default async function (req:  NextApiRequest, res: NextApiResponse) { 
-    console.log('inside API')
     const body = JSON.parse(req.body)
-    console.log(req.body)
     const token = body.registrationToken
     const id = body.userId
     const currentSemester = body.currentSemester

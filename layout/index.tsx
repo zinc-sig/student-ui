@@ -15,7 +15,6 @@ export function Layout({ children, title }: LayoutProps) {
 
   const { useSidebar } = useZinc();
   const { data, loading, error } = useSidebar();
-  console.log(error)
 
   return (
     <div className="h-screen flex flex-col">
