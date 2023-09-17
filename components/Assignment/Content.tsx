@@ -192,7 +192,7 @@ export function AssignmentContent({ content }) {
                     configId={content.id}
                     submissionClosed={content.submissionWindowPassed}
                     isOpen={content.openForSubmission}
-                    attemptLimitExceeded={(typeof content.attemptLimits=="number")||content.attemptLimits - data.submissions.length==0}
+                    attemptLimitExceeded={(typeof content.attemptLimits=="number")&&(content.attemptLimits - data.submissions.length)==0}
                     />
                 )
               }
