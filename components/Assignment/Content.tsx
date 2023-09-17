@@ -178,8 +178,8 @@ export function AssignmentContent({ content }) {
                   dueAt={content.dueAt}
                 />
                 {
-                  !loading && (typeof content.attemptLimits=="number") (
-                    <div>Remaining Submission Attempts:{content.attemptLimits - data.submissions.length}</div>
+                  !loading && (
+                    <div>{typeof content.attemptLimits=="number"?`Remaining Submission Attempts:${content.attemptLimits - data.submissions.length}`:""}</div>
                   )
                 }
               </div>
