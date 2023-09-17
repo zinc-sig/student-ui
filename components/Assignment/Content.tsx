@@ -178,7 +178,7 @@ export function AssignmentContent({ content }) {
                   dueAt={content.dueAt}
                 />
                 {
-                  !loading && content.attemptLimits!==null (
+                  !loading && (typeof content.attemptLimits=="number") (
                     <div>Remaining Submission Attempts:{content.attemptLimits - data.submissions.length}</div>
                   )
                 }
@@ -186,12 +186,16 @@ export function AssignmentContent({ content }) {
               <p className="my-4 leading-4">
                 { content.assignment.description }
               </p>
-              <AssignmentSubmission
-                configId={content.id}
-                submissionClosed={content.submissionWindowPassed}
-                isOpen={content.openForSubmission}
-                attemptLimitExceeded={content.attemptLimits==null||content.attemptLimits - data.submissions.length==0}
-                />
+              {
+                !loading && (
+                  <AssignmentSubmission
+                    configId={content.id}
+                    submissionClosed={content.submissionWindowPassed}
+                    isOpen={content.openForSubmission}
+                    attemptLimitExceeded={(typeof content.attemptLimits=="number")||content.attemptLimits - data.submissions.length==0}
+                    />
+                )
+              }
             </div>
           </li>
           { loading && <SubmissionLoader/> }
