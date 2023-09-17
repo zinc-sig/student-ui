@@ -163,6 +163,7 @@ export const GET_ASSIGNMENT_DETAIL = gql`
       dueAt
       openForSubmission
       stopCollectionAt
+      attemptLimits
       submissionWindowPassed
       assignment {
         name

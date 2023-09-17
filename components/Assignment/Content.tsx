@@ -13,7 +13,7 @@ import { SubmissionLoader } from "../SubmissionLoader";
 // import { useMutation} from "@apollo/client";
 // import { UPDATE_SUBMISSION_NOTI } from "../../graphql/mutations/user";
 
-function AssignmentSubmission({ submissionClosed, configId, isOpen }) {
+function AssignmentSubmission({ submissionClosed, configId, isOpen, attemptLimitExceeded }) {
   const { user ,submitFile } = useZinc();
   // const [updateSubmissionNoti] = useMutation(UPDATE_SUBMISSION_NOTI)
   const dispatch = useLayoutDispatch();
@@ -68,6 +68,15 @@ function AssignmentSubmission({ submissionClosed, configId, isOpen }) {
         <FontAwesomeIcon className="text-gray-500" icon={['fad', 'calendar-exclamation']} size="3x"/>
         <h4 className="mt-4 font-medium text-gray-500">Submission Deadline has passed</h4>
         <p className="text-sm text-gray-400">No new submission is allowed after the submission deadline is due</p>
+      </div>
+    )
+  }
+  else if (attemptLimitExceeded) {
+    return (
+      <div className="rounded-lg bg-gray-200 w-full py-4 flex flex-col items-center justify-center">
+        <FontAwesomeIcon className="text-gray-500" icon={['fad', 'calendar-exclamation']} size="3x"/>
+        <h4 className="mt-4 font-medium text-gray-500">Submission Attempt Limit exceeded</h4>
+        <p className="text-sm text-gray-400">No new submission is allowed when no remaining attempt is available</p>
       </div>
     )
   }
@@ -168,6 +177,11 @@ export function AssignmentContent({ content }) {
                   closed={content.submissionWindowPassed}
                   dueAt={content.dueAt}
                 />
+                {
+                  !loading && content.attemptLimits!==null (
+                    <div>Remaining Submission Attempts:{content.attemptLimits - data.submissions.length}</div>
+                  )
+                }
               </div>
               <p className="my-4 leading-4">
                 { content.assignment.description }
@@ -176,6 +190,7 @@ export function AssignmentContent({ content }) {
                 configId={content.id}
                 submissionClosed={content.submissionWindowPassed}
                 isOpen={content.openForSubmission}
+                attemptLimitExceeded={content.attemptLimits==null||content.attemptLimits - data.submissions.length==0}
                 />
             </div>
           </li>
