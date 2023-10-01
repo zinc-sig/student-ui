@@ -44,7 +44,7 @@ export function Submission({ submission }) {
           <p className="ml-2 text-sm text-gray-600">
             You submitted on 
             <span className="ml-1">
-              { `${submittedDate.toLocaleDateString('en-HK',{ month: 'short', day: 'numeric', ...(submittedDate.getFullYear()!==now.getFullYear()&&{ year: 'numeric' }) })} at ${submittedDate.toLocaleTimeString().toLowerCase()}` }
+              { `${submittedDate.toLocaleDateString('en-HK',{ month: 'short', day: 'numeric', ...(submittedDate.getFullYear()!==now.getFullYear()&&{ year: 'numeric' }) })} at ${submittedDate.toLocaleTimeString("en-US", { hour12: false, timeZone: "Asia/Hong_Kong" })}` }
             </span>
           </p>
         </div>
