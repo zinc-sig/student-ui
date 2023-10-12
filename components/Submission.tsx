@@ -5,7 +5,7 @@ import { Report } from "./Report/index";
 export function Submission({ submission }) {
   const now = new Date();
   
-  const submittedDate = new Date(submission.created_at);
+  const submittedDate = new Date(`${submission.created_at}Z`);
   return (
     <li >
       <ul>
