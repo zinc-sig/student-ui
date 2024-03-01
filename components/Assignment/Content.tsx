@@ -183,8 +183,7 @@ export function AssignmentContent({ content }) {
                   )
                 }
               </div>
-              <p className="my-4 leading-4" dangerouslySetInnerHTML={{__html: content.assignment.description }}>
-              </p>
+              <div className="my-4 leading-4" dangerouslySetInnerHTML={{__html: content.assignment.description }}></div>
               {
                 !loading && (
                   <AssignmentSubmission
