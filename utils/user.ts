@@ -29,6 +29,39 @@ async function createUser(itsc: string, name: string): Promise<any> {
   }
 }
 
+async function updateUser(id: number, name: string): Promise<any> {
+  try {
+    const { data } = await axios({
+      method: 'post',
+      headers: {
+        'X-Hasura-Admin-Secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET
+      },
+      url: `https://${process.env.API_URL}/v1/graphql`,
+      data: {
+        query: `
+          mutation updateUserName($id: bigint!, $name: String!) {
+            updateUser(
+              pk_columns: {
+              	id: $id
+            	}
+              _set: {
+                name: $name
+              }
+            ) {
+              id
+            }
+          }`,
+        variables: { id, name }
+      },
+    });
+    console.log(`[!] Update user name for id: ${id}`)
+    const { data: { updateUser }} = data;
+    return updateUser.id;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function getUserData(itsc: string, name:string): Promise<any> {
   try {
     const { data: { data } } = await axios({
@@ -64,6 +97,9 @@ export async function getUserData(itsc: string, name:string): Promise<any> {
     if(data.users.length===0) {
       userId = await createUser(itsc, name);
     } else {
+      if (data.users[0].name==null || data.users[0].name!==name) {
+        await updateUser(data.users[0].id, name)
+      }
       userId = data.users[0].id;
     }
     const [semester] = data.semesters;
