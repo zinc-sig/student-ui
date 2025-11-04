@@ -20,11 +20,10 @@ interface Submission {
 async function submit(cookie: string, submission: Submission) {
 
   try {
-    console.log(`in submission, cookie is ${cookie}`);
     const { data: { data, errors } } = await axios({
       method: 'post',
       headers: {
-        'X-Hasura-Admin-Secret': process.env.HASURA_GRAPHQL_ADMIN_SECRET
+        cookie
       },
       url: `https://${process.env.API_URL}/v1/graphql`,
       data: {
